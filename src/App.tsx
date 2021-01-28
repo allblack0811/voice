@@ -1,37 +1,53 @@
 import React, { useState } from "react";
-import { useModel } from 'react-tensorflow'
+import { useModel } from "react-tensorflow";
 import styled from "styled-components";
 import colors from "./contants/colors";
 
 import Chat from "./components/asset/chat";
 import Img from "./res/img/icon.jpg";
-
-interface Chat{
-  text: string;
-  user?:boolean;
-  icon?:string;
+import SpeechRecognition, {
+  useSpeechRecognition,
+} from "react-speech-recognition";
+interface Chat {
+  text?: any;
+  user?: boolean;
+  icon: string;
 }
 
 function App() {
-  const model = useModel({ model: `@tensorflow/tfjs` });
-  console.log(model);
+  // const model = useModel({ model: `@tensorflow/tfjs` });
+  // console.log(model);
   const [speak, setSpeak] = useState(false);
-  const [chats, setChats] = useState<Chat[]>();
+  const [chats, setChats] = useState<Chat[]>([]);
+  const { transcript, resetTranscript } = useSpeechRecognition();
+
   const Speaking = () => {
     // alert("change");
+    if (!speak) SpeechRecognition.startListening({ continuous: true });
+    else {
+      SpeechRecognition.stopListening();
+      setChats((chats) => [
+        ...chats,
+        { text: transcript, icon: Img, user: true },
+      ]);
+      resetTranscript();
+    }
   };
   return (
     <Wrap>
       <div className="chat">
         <Chat text="test" icon="none" />
-        <Chat text="test" icon={Img} right/>
+        <Chat text="test" icon={Img} right />
         <Chat text="test" icon="none" />
-        <Chat text="test" icon="none" right/>
+        <Chat text="test" icon="none" right />
         <Chat text="test" icon="none" />
-        <Chat text="test" icon="none" right/>
+        <Chat text="test" icon="none" right />
         <Chat text="test" icon="none" />
-        <Chat text="test" icon="none" right/>
-        <Chat text="test" icon="none" />
+        <Chat text="test" icon="none" right />
+        <Chat text="text" icon="none" />
+        {chats.map((data) => (
+          <Chat text={data.text} icon={data.icon} right={data.user} />
+        ))}
       </div>
       <div
         className={speak ? "input loading-container" : "input"}
@@ -42,8 +58,11 @@ function App() {
       >
         <span className={speak ? "nowspeak" : "notspeak"} id="loading-text" />
         <div className={speak ? "loading" : ""} />
+        <div className={transcript ? "preview" : "preview nonpreview"}>
+          {transcript}
+          <span className="material-icons">clear</span>
+        </div>
       </div>
-      <input type="file" accept="audio/*;capture=microphone"/>
     </Wrap>
   );
 }
@@ -59,13 +78,13 @@ const Wrap = styled.div`
   align-items: center;
   flex-basis: 100vh;
   & > .chat {
-    width:100%;
-    padding:20px 40px;
+    width: 100%;
+    padding: 20px 40px;
     display: flex;
-    flex-direction:column;
-    box-sizing:border-box;
+    flex-direction: column;
+    box-sizing: border-box;
     flex-basis: 80%;
-    overflow-y:auto;
+    overflow-y: auto;
   }
   & > .input {
     flex-basis: 20%;
