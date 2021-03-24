@@ -1,58 +1,57 @@
-*{
-    margin:0;
-    padding:0;
+* {
+  margin: 0;
+  padding: 0;
 }
-body{
-    font-family: "Helvetica Neue, " Helvetica ", " "arial";
+body {
+  font-family: "Helvetica Neue, " Helvetica ", " "arial";
 }
 @keyframes rotate-loading {
-    0% {
-      transform: rotate(0deg);
-      -ms-transform: rotate(0deg);
-      -webkit-transform: rotate(0deg);
-      -o-transform: rotate(0deg);
-      -moz-transform: rotate(0deg);
-    }
-    100% {
-      transform: rotate(360deg);
-      -ms-transform: rotate(360deg);
-      -webkit-transform: rotate(360deg);
-      -o-transform: rotate(360deg);
-      -moz-transform: rotate(360deg);
-    }
+  0% {
+    transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
   }
-  
-  @keyframes loading-text-opacity {
-    0% {
-      opacity: 0;
-    }
-    20% {
-      opacity: 0;
-    }
-    50% {
-      opacity: 1;
-    }
-    100% {
-      opacity: 0;
-    }
+  100% {
+    transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
   }
+}
 
-  .preview{
-    position: fixed;
-    bottom: 15%;
-    right: 50%;
-    background: white;
-    padding: 10px 20px;
-    transform: translate(50%, 0);
-    border-radius: 5px;
-    display:flex;
-    z-index: 100;
-    &>span{
-      color:red;
-    }
-    transition: all 0.5s;
+@keyframes loading-text-opacity {
+  0% {
+    opacity: 0;
   }
+  20% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
 
-  .nonpreview{
-    display:none;
-  }
+.preview {
+  position: fixed;
+  bottom: 15%;
+  right: 50%;
+  background: white;
+  padding: 10px 20px;
+  transform: translate(50%, 0);
+  border-radius: 5px;
+  display: flex;
+  z-index: 100;
+
+  transition: all 0.5s;
+  // position: relative;
+}
+
+.nonpreview {
+  display: none;
+}

@@ -33,18 +33,12 @@ function App() {
       resetTranscript();
     }
   };
+  // const delect = () => {
+  //   transcript = "";
+  // };
   return (
     <Wrap>
       <div className="chat">
-        <Chat text="test" icon="none" />
-        <Chat text="test" icon={Img} right />
-        <Chat text="test" icon="none" />
-        <Chat text="test" icon="none" right />
-        <Chat text="test" icon="none" />
-        <Chat text="test" icon="none" right />
-        <Chat text="test" icon="none" />
-        <Chat text="test" icon="none" right />
-        <Chat text="text" icon="none" />
         {chats.map((data) => (
           <Chat text={data.text} icon={data.icon} right={data.user} />
         ))}
@@ -57,10 +51,11 @@ function App() {
         }}
       >
         <span className={speak ? "nowspeak" : "notspeak"} id="loading-text" />
+
         <div className={speak ? "loading" : ""} />
+
         <div className={transcript ? "preview" : "preview nonpreview"}>
           {transcript}
-          <span className="material-icons">clear</span>
         </div>
       </div>
     </Wrap>
