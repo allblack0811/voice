@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import SpeechRecognition, {
   useSpeechRecognition,
@@ -23,16 +23,18 @@ function App() {
     SpeechRecognition.startListening({ continuous: true });
     if (speak && transcript) {
       SpeechRecognition.stopListening();
-      var text = transcript;
-      // alert(transcript);
-
-      // transcript = "";
-      setChats((chats) => [...chats, { text: text, icon: Img, user: true }]);
+      socket.emit("chat-msg", transcript);
     }
     resetTranscript();
-    // alert(transcript);
+
     setSpeak(!speak);
   };
+  useEffect(() => {
+    socket.on("chat-msg", (message: string) => {
+      // alert(message);
+      setChats((chats) => [...chats, { text: message, icon: Img, user: true }]);
+    });
+  }, []);
   return (
     <ChatPage
       Speaking={Speaking}
